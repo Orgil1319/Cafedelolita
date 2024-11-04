@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café de Lolita</title>
+    <link rel="stylesheet" href="lolita.css">
+    
+</head>
+<body>
+    <header>
+        <a href="lolita.html">
+            <img src="logo.png" alt="Cafe de Lolita Logo" class="logo">
+        </a>
+        <h2 class="garchig">Welcome to Cafe de Lolita</h2>
+        <nav>
+            <ul>
+                <li class="menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="dropdown">
+                        <a href="menu1.html">Drink</a>
+                        <a href="menu2.html">Food</a>
+                        <a href="manu3.html">Dessert</a>
+                    </div>
+                </li>
+                
+                <li><a href="eventlolita.html">Events</a></li>
+                <li><a href="aboutuslolita.html">About Us</a></li>
+                <li><a href="contactlolita.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="w-full pt-[140px] max-w-full">
+            <div class="main-swiper">
+                <div style="opacity: 1; transform: none;">
+                    <div class="swiper swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
+                        
+                        
+        
+                        <div class="swiper-wrapper" style="transition-duration: 0ms;">
+                            <div class="container">
+                                <div class="circular-progress">
+                                    <span class="progress-value">1</span>
+                                </div>
+                            </div>
+                            <div class="swiper-slide cursor-grab">
+                                <img src="mainpic1.jpg" alt="hana" class="w-full border-r-0 h-fit">
+                            </div>
+                            <div class="swiper-slide cursor-grab">
+                                <img src="mainpic2.png" alt="zuun" class="w-full border-r-0 h-fit">
+                            </div>
+                            <div class="swiper-slide cursor-grab">
+                                <img src="mainpic3.jpg" alt="uud" class="w-full border-r-0 h-fit">
+                            </div>
+                            <div class="swiper-slide cursor-grab">
+                                <img src="mainpic4.jpg" alt="baruun" class="w-full border-r-0 h-fit">
+                            </div>
+                        </div>
+                        <div class="swiper-scrollbar swiper-scrollbar-horizontal"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <button class="nav-button left" onclick="moveToPreviousSlide()">&#8249;</button>
+        <div class="slideshow-container">
+            
+            <div class="slideshow-track">
+                <div class="slideshow-image"><a href="menu1.html"><img src="drink1.jpg" alt="Image 1"></a></div>
+                <div class="slideshow-image"><a href="menu1.html"><img src="drink4.jpg" alt="Image 2"></a></div>
+                <div class="slideshow-image"><a href="manu3.html"><img src="cake1.jpg" alt="Image 3"></a></div>
+                <div class="slideshow-image"><a href="menu2.html"><img src="food11.jpg" alt="Image 4"></a></div>
+                <div class="slideshow-image"><a href="manu3.html"><img src="cake2.jpg" alt="Image 5"></a></div>
+                <div class="slideshow-image"><a href="menu2.html"><img src="food71.jpg" alt="Image 6"></a></div>
+                <div class="slideshow-image"><a href="menu1.html"><img src="drink1.jpg" alt="Image 1"></a></div>
+                <div class="slideshow-image"><a href="menu1.html"><img src="drink4.jpg" alt="Image 2"></a></div>
+                <div class="slideshow-image"><a href="manu3.html"><img src="cake1.jpg" alt="Image 3"></a></div>
+            </div>
+            
+            
+        </div>
+        <button class="nav-button right" onclick="moveToNextSlide()">&#8250;</button>
+        <script src="C:\Users\ASUS\Downloads\swiper-bundle.min.js"></script>
+        
+    
+        <script>
+            let circularProgress = document.querySelector('.circular-progress');
+            let progressValue = document.querySelector('.progress-value');
+
+            let progressStartValue = 0;
+            let progressEndValue = 100;
+            let duration = 4300; 
+            let speed = duration / progressEndValue;
+
+            let countdownValues = [1, 2, 3, 0];
+            let currentCountIndex = 0;
+
+            function startProgress() {
+                progressStartValue = 0; 
+
+                let progress = setInterval(() => {
+                    progressStartValue++;
+
+                    
+                    if (progressStartValue % 25 === 0) { 
+                        progressValue.textContent = countdownValues[currentCountIndex];
+
+                        
+                        currentCountIndex++;
+                        if (currentCountIndex >= countdownValues.length) {
+                            currentCountIndex = 0; 
+                        }
+                    }
+
+                    
+                    circularProgress.style.background =
+                        `conic-gradient(brown ${progressStartValue * 3.6}deg, #ededed 0deg)`;
+
+                    if (progressStartValue === progressEndValue) {
+                        clearInterval(progress);
+                        startProgress(); 
+                    }
+                }, speed);
+            }
+
+            startProgress(); 
+        
+        
+            var countdownTime = 4; 
+            var countdownElements = document.querySelectorAll('.countdown-text'); 
+
+            var swiper = new Swiper('.swiper', {
+                effect: 'fade',
+                loop: true,
+                autoplay: {
+                    delay: 4000, 
+                    disableOnInteraction: false,
+                },
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                    draggable: true,
+                    hide: false, 
+                },
+                on: {
+                    slideChange: function() {
+                        resetCountdown();
+                    }
+                }
+            });
+
+            function resetCountdown() {
+                countdownTime = 4; 
+                countdownElements.forEach(function(el) {
+                    el.textContent = countdownTime + 's'; 
+                });
+                startCountdown();
+            }
+
+            function startCountdown() {
+                var countdownInterval = setInterval(function() {
+                    countdownTime--;
+                    countdownElements.forEach(function(el) {
+                        el.textContent = countdownTime + 's'; 
+                    });
+
+                    if (countdownTime <= 0) {
+                        clearInterval(countdownInterval); 
+                    }
+                }, 1000); 
+            }
+
+            startCountdown(); 
+        </script>
+
+
+
+        <script>
+            const slideshowTrack = document.querySelector('.slideshow-track');
+            const slides = Array.from(slideshowTrack.children);
+            const slideWidth = slides[0].offsetWidth + 20; 
+            let currentIndex = 0;
+            let autoSlideInterval;
+        
+            function updateSlidePosition() {
+                slideshowTrack.style.transition = 'transform 0.8s ease';
+                slideshowTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+        
+            function moveToNextSlide() {
+                currentIndex++;
+                
+                if (currentIndex >= slides.length - 3) { 
+                    setTimeout(() => {
+                        currentIndex = 0; 
+                        slideshowTrack.style.transition = 'none'; 
+                        slideshowTrack.style.transform = `translateX(0)`; 
+                    }, 800); 
+                }
+                
+                updateSlidePosition();
+                restartAutoSlide(); 
+            }
+        
+            function moveToPreviousSlide() {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = slides.length - 4; 
+                }
+                updateSlidePosition();
+                restartAutoSlide(); 
+            }
+        
+           
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(moveToNextSlide, 5000);
+            }
+        
+            
+            function restartAutoSlide() {
+                clearInterval(autoSlideInterval); 
+                startAutoSlide();
+            }
+        
+            
+            startAutoSlide();
+        
+        </script>
+    </main>
+
+    <footer>
+        <p>Follow us on social media!</p>
+        <p>Hours: Mon-Sun 10 AM - 9 PM</p>
+        <p>Contact: <a href="https://www.facebook.com/cafe.de.lolitaa"><b>Facebook</b></a></p>
+    </footer>
+</body>
+</html>
+

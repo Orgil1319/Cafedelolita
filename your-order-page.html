@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Cafe de Lolita</title>
+    <link rel="stylesheet" href="menu.css"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            height: 100vh;
+        }
+        
+        .order-container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ff6699;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #ff6699;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #ff3366;
+        }
+
+    
+        #orderModal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; /* Increased width */
+            height: 400px; /* Increased height */
+            background: linear-gradient(to right, rgba(255, 0, 0, 0.8), rgba(255, 165, 0, 0.8)); /* Gradient from red to orange */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0; /* Start hidden */
+            transition: opacity 0.5s ease; /* Smooth transition */
+        }
+
+
+        #orderModal.show {
+            display: block;
+            opacity: 1; /* Fade in */
+        }
+
+        #orderModal button {
+            background-color: white;
+            color: red;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #orderModal button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <h2>Order Your Favorite Item</h2>
+        <form id="orderForm" action="lolita.html" method="post" onsubmit="showModal(event)">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="item">Select Item:</label>
+            <select id="item" name="item">
+                <option value="Strawberry">Strawberry Crepe</option>
+                <option value="Banana">Banana Crepe</option>
+                <option value="Pineapple">Pineapple Crepe</option>
+                <option value="Halloween">Halloween Roll Cake</option>
+                <option value="Brown">Brown Roll Cake</option>
+                <option value="Orange">Orange Roll Cake</option>
+                <option value="Yellow">Yellow Cream Sandwich</option>
+                <option value="Red">Red Cream Sandwich</option>
+                <option value="Pop">Pop Cake</option>
+                <option value="Americano">Americano</option>
+                <option value="Cyberpunk">Cyberpunk</option>
+                <option value="Hot">Hot Chocolate</option>
+                <option value="Blue">Blue Lemonade</option>
+                <option value="Pomegranate">Pomegranate Lemonade</option>
+                <option value="Grape">Grape Ade</option>
+                <option value="Coconut">Coconut Jelly Milk</option>
+                <option value="Coffee">Coffee + Cookie</option>
+                <option value="Pepperoni">Pepperoni Pizza</option>
+                <option value="Chicken">Chicken Pizza</option>
+                <option value="Sausage">Sausage and Dog</option>
+                <option value="Udon">Udon and Tteokbokki</option>
+                <option value="Spicy">Spicy Chicken</option>
+                <option value="Nugget">Nugget</option>
+                <option value="Skewer">Chicken Skewer</option>
+                <option value="Crispy">Crispy Fried Chicken</option>
+                <option value="Sweet">Sweet and Spicy Chicken</option>
+            </select>
+            
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1">
+
+            <label for="appt">Select a time:</label>
+            <input type="time" id="appt" name="appt">
+            
+            <label for="notes">Special Requests:</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Add any special instructions..."></textarea>
+
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <!-- Modal HTML -->
+    <div id="orderModal">
+        <h3>Order Submitted!</h3>
+        <p>Your order has been placed successfully.</p>
+        <button onclick="closeModal()">Close</button>
+    </div>
+
+    <script>
+        
+        function showModal(event) {
+            event.preventDefault(); 
+            
+            // Show the modal smoothly
+            const modal = document.getElementById("orderModal");
+            modal.classList.add("show");
+        }
+    
+      
+        function closeModal() {
+            const modal = document.getElementById("orderModal");
+            modal.classList.remove("show"); // Hide modal
+            
+           
+            setTimeout(() => {
+                document.getElementById('orderForm').submit(); 
+            }, 1000);
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedItem = urlParams.get('item');
+    
+        window.addEventListener('DOMContentLoaded', () => {
+            if (selectedItem) {
+                document.getElementById('item').value = selectedItem;
+            }
+        });
+    </script>
+</body>
+</html>
