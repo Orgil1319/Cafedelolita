@@ -338,6 +338,7 @@ padding: 20px;
         }
         .card {
             gap: 20px;
+            margin: -25px;
             margin-top: 30px;
             width: 350px;
             height:450px;
